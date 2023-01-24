@@ -1,0 +1,54 @@
+﻿@page "/displays"
+@using BindingTest.Data;
+@using System.Collections.ObjectModel;
+
+<PageTitle>Displays</PageTitle>
+
+@inject DisplayService display
+
+<h1>Display Service</h1>
+
+@if (display.ScreenCollection == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <p>Total items in collection: @display.ScreenCollection.Count</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Device Name</th>
+                <th>Primary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var display in display.ScreenCollection)
+            {
+                <tr>
+                    <td>@display.DeviceName</td>
+                    <td>@display.Primary.ToString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@*@code {
+
+    private ObservableCollection<DisplayInfo> ScreenCollection { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        foreach (var Screen in Screen.AllScreens)
+        {
+            ScreenCollection.Add(new DisplayInfo
+                {
+                    DeviceName = Screen.DeviceName,
+                    Primary = Screen.Primary,
+                });
+        }
+    }
+}*@
